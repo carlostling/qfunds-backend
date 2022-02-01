@@ -16,8 +16,7 @@ enum InvoiceStatus {
     IN_BIDDING,
     COMPLETE
 }
-@Getter
-@Setter
+
 @Document("invoices")
 @Data
 public class Invoice {
@@ -28,5 +27,9 @@ public class Invoice {
 
     private Double amount;
 
-    private List<Double> bids;
+    private List<Bid> bidHistory;
+
+    private Bid leadingBid;
+
+    private String LeaderId;
 }
