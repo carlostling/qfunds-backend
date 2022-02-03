@@ -1,21 +1,12 @@
 package com.qfunds.qfundsbackend.model;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.web.servlet.View;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-
-enum InvoiceStatus {
-    NEW,
-    IN_BIDDING,
-    COMPLETE
-}
 
 @Document("invoices")
 @Data
@@ -25,11 +16,14 @@ public class Invoice {
 
     private InvoiceStatus status;
 
+    private LocalDateTime deadline;
+
+    private Seller seller;
+
     private Double amount;
 
     private List<Bid> bidHistory;
 
     private Bid leadingBid;
 
-    private String LeaderId;
 }

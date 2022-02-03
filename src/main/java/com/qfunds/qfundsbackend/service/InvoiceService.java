@@ -8,5 +8,7 @@ public interface InvoiceService {
 
     Invoice saveInvoice(Invoice invoice);
 
+    void checkInvoicesPassDeadline();
+
     void placeBid(Bid bid) throws ResourceNotFoundException;
 }
