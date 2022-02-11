@@ -4,6 +4,6 @@ import com.qfunds.qfundsbackend.model.Bid;
 
 public interface BidService {
 
-    boolean isHigherBid(Bid bid1, Bid bid2);
+    boolean isLowerBid(Bid bid1, Bid bid2);
 
 }

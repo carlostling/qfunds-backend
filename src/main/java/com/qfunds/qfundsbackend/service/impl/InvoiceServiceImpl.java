@@ -9,6 +9,7 @@ import com.qfunds.qfundsbackend.service.BidService;
 import com.qfunds.qfundsbackend.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -51,7 +52,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public void placeBid(Bid bid) throws ResourceNotFoundException {
+    public Invoice placeBid(@RequestBody Bid bid) throws ResourceNotFoundException {
         Optional<Invoice> invoiceOpt = invoiceRepository.findById(bid.getInvoiceId());
         if (invoiceOpt.isEmpty()) {
             throw new ResourceNotFoundException("Invoice not found");
@@ -61,12 +62,20 @@ public class InvoiceServiceImpl implements InvoiceService {
         if(invoice.getLeadingBid() == null){
             invoice.setLeadingBid(bid);
             saveInvoice(invoice);
-            return;
+            System.out.println(invoice.getLeadingBid());
+            return invoice;
         }
-        if(bidService.isHigherBid(bid, invoice.getLeadingBid())){
+        if(bidService.isLowerBid(bid, invoice.getLeadingBid())){
             invoice.setLeadingBid(bid);
+            System.out.println(invoice.getLeadingBid());
             saveInvoice(invoice);
         }
+        return invoice;
+    }
+
+    @Override
+    public List<Invoice> getAllInvoices() {
+        return invoiceRepository.findAll();
     }
 
 }

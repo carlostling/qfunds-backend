@@ -13,7 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "api/v1/invoice")
@@ -32,15 +33,31 @@ public class InvoiceController {
         return new ResponseEntity("Invoice added successfully.", HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/bid")
-    public ResponseEntity<Invoice> bid(@RequestBody Bid bid){
-
+    public ResponseEntity<Invoice> placeBid(@RequestBody Bid bid){
+        System.out.println(bid);
         try{
-            invoiceService.placeBid(bid);
-            return new ResponseEntity("Bid placed successfully.", HttpStatus.OK);
+            Invoice invoice = invoiceService.placeBid(bid);
+            return new ResponseEntity<>(invoice, HttpStatus.OK);
         }
         catch(ResourceNotFoundException e){
-            return new ResponseEntity("Invoice for bid not found.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/")
+    public ResponseEntity<List<Invoice>> getAllInvoices(){
+        List<Invoice> invoices = invoiceService.getAllInvoices();
+        return new ResponseEntity<>(invoices, HttpStatus.OK);
+    }
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/test")
+    public void process(@RequestBody Map<String, Object> payload)
+            throws Exception {
+
+        System.out.println(payload);
+
     }
 }
