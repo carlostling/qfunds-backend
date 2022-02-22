@@ -1,6 +1,6 @@
 package com.qfunds.qfundsbackend.service.impl;
 
-import com.qfunds.qfundsbackend.exception.ResourceNotFoundException;
+import com.qfunds.qfundsbackend.error.EntityDoesNotExistException;
 import com.qfunds.qfundsbackend.model.Bid;
 import com.qfunds.qfundsbackend.model.Invoice;
 import com.qfunds.qfundsbackend.model.InvoiceStatus;
@@ -52,10 +52,10 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public Invoice placeBid(@RequestBody Bid bid) throws ResourceNotFoundException {
+    public Invoice placeBid(@RequestBody Bid bid) throws EntityDoesNotExistException {
         Optional<Invoice> invoiceOpt = invoiceRepository.findById(bid.getInvoiceId());
         if (invoiceOpt.isEmpty()) {
-            throw new ResourceNotFoundException("Invoice not found");
+            throw new EntityDoesNotExistException("Bid not found", Bid.class);
         }
         Invoice invoice = invoiceOpt.get();
        //No current bid, make it leading

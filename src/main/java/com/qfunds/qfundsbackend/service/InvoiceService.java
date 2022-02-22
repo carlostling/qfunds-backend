@@ -1,6 +1,6 @@
 package com.qfunds.qfundsbackend.service;
 
-import com.qfunds.qfundsbackend.exception.ResourceNotFoundException;
+import com.qfunds.qfundsbackend.error.EntityDoesNotExistException;
 import com.qfunds.qfundsbackend.model.Bid;
 import com.qfunds.qfundsbackend.model.Invoice;
 
@@ -12,7 +12,7 @@ public interface InvoiceService {
 
     void checkInvoicesPassDeadline();
 
-    Invoice placeBid(Bid bid) throws ResourceNotFoundException;
+    Invoice placeBid(Bid bid) throws EntityDoesNotExistException;
 
     List<Invoice> getAllInvoices();
 }

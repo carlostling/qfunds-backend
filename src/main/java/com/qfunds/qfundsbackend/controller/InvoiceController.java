@@ -1,7 +1,7 @@
 package com.qfunds.qfundsbackend.controller;
 
 
-import com.qfunds.qfundsbackend.exception.ResourceNotFoundException;
+import com.qfunds.qfundsbackend.error.EntityDoesNotExistException;
 import com.qfunds.qfundsbackend.model.Bid;
 import com.qfunds.qfundsbackend.model.Invoice;
 import com.qfunds.qfundsbackend.model.InvoiceStatus;
@@ -33,7 +33,6 @@ public class InvoiceController {
         return new ResponseEntity("Invoice added successfully.", HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/bid")
     public ResponseEntity<Invoice> placeBid(@RequestBody Bid bid){
         System.out.println(bid);
@@ -41,18 +40,16 @@ public class InvoiceController {
             Invoice invoice = invoiceService.placeBid(bid);
             return new ResponseEntity<>(invoice, HttpStatus.OK);
         }
-        catch(ResourceNotFoundException e){
+        catch(EntityDoesNotExistException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/")
     public ResponseEntity<List<Invoice>> getAllInvoices(){
         List<Invoice> invoices = invoiceService.getAllInvoices();
         return new ResponseEntity<>(invoices, HttpStatus.OK);
     }
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/test")
     public void process(@RequestBody Map<String, Object> payload)
             throws Exception {
