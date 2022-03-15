@@ -26,11 +26,11 @@ public class InvoiceController {
     private InvoiceService invoiceService;
 
     @PostMapping("/")
-    public ResponseEntity postInvoice(@RequestBody Invoice invoice){
+    public ResponseEntity<Invoice> postInvoice(@RequestBody Invoice invoice){
         invoice.setDeadline(LocalDateTime.now().plusHours(DEADLINE_HOURS));
         invoice.setStatus(InvoiceStatus.ACTIVE);
         invoiceService.saveInvoice(invoice);
-        return new ResponseEntity("Invoice added successfully.", HttpStatus.OK);
+        return new ResponseEntity<>(invoice, HttpStatus.OK);
     }
 
     @PostMapping("/bid")
