@@ -14,6 +14,8 @@ public class Bid {
 
     private String bidderId;
 
+    private String buyerCompany;
+
     private String invoiceId;
 
     private Double bidAmount;

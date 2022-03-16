@@ -30,7 +30,7 @@ public class ScheduledTasks {
 
     private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-    private static final String CRON_EXPRESSION = "* */15 * * * *";
+    private static final String CRON_EXPRESSION = "0 0/15 * * * *";
 
     @Autowired
     InvoiceService invoiceService;
