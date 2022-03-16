@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.qfunds'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+sourceCompatibility = '1.8'
 
 configurations {
 	compileOnly {
@@ -19,13 +19,13 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.6.4'
+	compileOnly 'org.projectlombok:lombok:1.18.22'
+	annotationProcessor 'org.projectlombok:lombok:1.18.22'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.4'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.6.3'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.boot:spring-boot-starter-security:2.6.4'
+	implementation 'org.springframework.security:spring-security-test:5.6.2'
 	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
 	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
@@ -34,7 +34,7 @@ dependencies {
 	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
 // https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime
 	implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.3'
-	testImplementation 'org.apache.httpcomponents:httpclient'
+	testImplementation 'org.apache.httpcomponents:httpclient:4.5.13'
 
 }
 
@@ -43,11 +43,11 @@ test {
 }
 
 apply plugin: 'java-library'
-
+/**
 jar {
 	manifest {
 		attributes(
 				'Main-Class': 'com.qfunds.qfundsbackend.QfundsBackendApplication'
 		)
 	}
-}
+}**/

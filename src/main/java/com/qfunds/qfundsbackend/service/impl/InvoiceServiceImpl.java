@@ -54,7 +54,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public Invoice placeBid(@RequestBody Bid bid) throws EntityDoesNotExistException {
         Optional<Invoice> invoiceOpt = invoiceRepository.findById(bid.getInvoiceId());
-        if (invoiceOpt.isEmpty()) {
+        if (!invoiceOpt.isPresent()) {
             throw new EntityDoesNotExistException("Bid not found", Bid.class);
         }
         Invoice invoice = invoiceOpt.get();
