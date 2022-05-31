@@ -18,9 +18,9 @@ public class Invoice {
 
     private LocalDateTime deadline;
 
-    private Company seller;
+    private Company issuer;
 
-    private Company buyer;
+    private Company receiver;
 
     private Double amount;
 
