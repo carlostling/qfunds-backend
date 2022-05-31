@@ -35,7 +35,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         List<Invoice> toDeactivate = invoiceRepository
                 .findByDeadlineLessThanAndStatus(LocalDateTime.now(), InvoiceStatus.ACTIVE);
         for (Invoice invoice : toDeactivate ) {
-           System.out.println(invoice.getSeller().getName() + " Passed deadline by: " +
+           System.out.println(invoice.getIssuer().getName() + " Passed deadline by: " +
                    ChronoUnit.SECONDS.between(invoice.getDeadline(), LocalDateTime.now())
                     + " seconds, deactivating");
             if (hasWinner(invoice)) {
