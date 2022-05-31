@@ -3,12 +3,11 @@ package com.qfunds.qfundsbackend.model;
 
 import lombok.Data;
 @Data
-public class Seller {
+public class Company {
 
     private String name;
 
     private String orgNumber;
 
-    private String Industry;
-
+    /**Populate with allabolag info?**/
 }
