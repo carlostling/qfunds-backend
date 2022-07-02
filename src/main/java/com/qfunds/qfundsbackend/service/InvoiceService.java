@@ -2,6 +2,7 @@ package com.qfunds.qfundsbackend.service;
 
 import com.qfunds.qfundsbackend.error.EntityDoesNotExistException;
 import com.qfunds.qfundsbackend.model.Bid;
+import com.qfunds.qfundsbackend.model.Company;
 import com.qfunds.qfundsbackend.model.Invoice;
 import com.qfunds.qfundsbackend.model.InvoiceStatus;
 import com.qfunds.qfundsbackend.model.Seller;
@@ -18,6 +19,6 @@ public interface InvoiceService {
 
     List<Invoice> getAllInvoices();
 
-    List<Invoice> getInvoicesByProps(InvoiceStatus status, Seller seller,
+    List<Invoice> getInvoicesByProps(InvoiceStatus status, Company seller,
                                      Double lessThanAmount, Boolean hasLeadingBid);
 }

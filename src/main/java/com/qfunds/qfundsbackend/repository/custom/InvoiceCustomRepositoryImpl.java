@@ -1,8 +1,8 @@
 package com.qfunds.qfundsbackend.repository.custom;
 
+import com.qfunds.qfundsbackend.model.Company;
 import com.qfunds.qfundsbackend.model.Invoice;
 import com.qfunds.qfundsbackend.model.InvoiceStatus;
-import com.qfunds.qfundsbackend.model.Seller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -18,13 +18,13 @@ public class InvoiceCustomRepositoryImpl implements InvoiceCustomRepository{
     MongoTemplate mongoTemplate;
 
     @Override
-    public List<Invoice> findInvoiceByProps(InvoiceStatus status, Seller seller, Double lessThanAmount, Boolean hasLeadingBid) {
+    public List<Invoice> findInvoiceByProps(InvoiceStatus status, Company company, Double lessThanAmount, Boolean hasLeadingBid) {
         final Query query = new Query();
         final List<Criteria> criteria = new ArrayList<>();
         if (status != null)
             criteria.add(Criteria.where("status").is(status));
-        if (seller != null)
-            criteria.add(Criteria.where("seller").is(seller));
+        if (company != null)
+            criteria.add(Criteria.where("company").is(company));
         if (lessThanAmount != null)
             criteria.add(Criteria.where("amount").lte(lessThanAmount));
         if (hasLeadingBid != null)

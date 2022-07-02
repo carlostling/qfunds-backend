@@ -3,9 +3,9 @@ package com.qfunds.qfundsbackend.controller;
 
 import com.qfunds.qfundsbackend.error.EntityDoesNotExistException;
 import com.qfunds.qfundsbackend.model.Bid;
+import com.qfunds.qfundsbackend.model.Company;
 import com.qfunds.qfundsbackend.model.Invoice;
 import com.qfunds.qfundsbackend.model.InvoiceStatus;
-import com.qfunds.qfundsbackend.model.Seller;
 import com.qfunds.qfundsbackend.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,15 +52,14 @@ public class InvoiceController {
         return new ResponseEntity<>(invoices, HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<?> getStudentsByProperties(@RequestParam(required = false) InvoiceStatus status,
-                                                     @RequestParam(required = false) Seller seller,
+    @GetMapping("/")
+    public ResponseEntity<?> getInvoicesByProperties(@RequestParam(required = false) InvoiceStatus status,
+                                                     @RequestParam(required = false) Company company,
                                                      @RequestParam(required = false) Double lessThanAmount,
                                                      @RequestParam(required = false) Boolean hasLeadingBid) {
-        return ResponseEntity.ok()
-                .body(
+        return ResponseEntity.ok().body(
                         invoiceService.getInvoicesByProps(
-                                status, seller, lessThanAmount, hasLeadingBid));
+                                status, company, lessThanAmount, hasLeadingBid));
     }
 
 
