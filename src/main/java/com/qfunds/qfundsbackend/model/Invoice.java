@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,11 +21,11 @@ public class Invoice {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime deadline;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime issueDate;
+    @JsonFormat(pattern="yyyy-MM-dd", shape=JsonFormat.Shape.STRING)
+    private LocalDate issueDate;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime expiryDate;
+    @JsonFormat(pattern="yyyy-MM-dd", shape=JsonFormat.Shape.STRING)
+    private LocalDate expiryDate;
 
     private Company issuer;
 
