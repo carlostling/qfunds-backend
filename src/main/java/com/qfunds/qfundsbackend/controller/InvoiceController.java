@@ -46,11 +46,11 @@ public class InvoiceController {
         }
     }
 
-    @GetMapping("/")
+    /**@GetMapping("/")
     public ResponseEntity<List<Invoice>> getAllInvoices(){
         List<Invoice> invoices = invoiceService.getAllInvoices();
         return new ResponseEntity<>(invoices, HttpStatus.OK);
-    }
+    }**/
 
     @GetMapping("/")
     public ResponseEntity<?> getInvoicesByProperties(@RequestParam(required = false) InvoiceStatus status,
