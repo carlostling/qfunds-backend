@@ -18,9 +18,15 @@ public class Invoice {
 
     private LocalDateTime deadline;
 
+    private LocalDateTime issueDate;
+
+    private LocalDateTime expiryDate;
+
     private Company issuer;
 
     private Company receiver;
+
+    private Double rating;
 
     private Double amount;
 
