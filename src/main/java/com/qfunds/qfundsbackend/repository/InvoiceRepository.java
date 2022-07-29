@@ -11,5 +11,4 @@ import java.util.List;
 public interface InvoiceRepository extends MongoRepository<Invoice, String>, InvoiceCustomRepository {
 
     List<Invoice> findByDeadlineLessThanAndStatus(LocalDateTime now, InvoiceStatus status);
-
 }

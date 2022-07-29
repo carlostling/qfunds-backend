@@ -2,10 +2,7 @@ package com.qfunds.qfundsbackend.controller;
 
 
 import com.qfunds.qfundsbackend.error.EntityDoesNotExistException;
-import com.qfunds.qfundsbackend.model.Bid;
-import com.qfunds.qfundsbackend.model.Company;
-import com.qfunds.qfundsbackend.model.Invoice;
-import com.qfunds.qfundsbackend.model.InvoiceStatus;
+import com.qfunds.qfundsbackend.model.*;
 import com.qfunds.qfundsbackend.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -62,6 +59,13 @@ public class InvoiceController {
                                 status, company, lessThanAmount, hasLeadingBid));
     }
 
+    /**
+     * Returns a list of invoices where the user and/or its company has already placed a bid.
+     */
+    @GetMapping("/involved")
+    public ResponseEntity<?> getInvolvedInvoices(@RequestBody User user){
+        return ResponseEntity.ok().body(invoiceService.getInvolvedInvoices(user));
+    }
 
     @PostMapping("/test")
     public void process(@RequestBody Map<String, Object> payload)

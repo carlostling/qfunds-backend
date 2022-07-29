@@ -1,11 +1,9 @@
 package com.qfunds.qfundsbackend.service.impl;
 
 import com.qfunds.qfundsbackend.error.EntityDoesNotExistException;
-import com.qfunds.qfundsbackend.model.Bid;
-import com.qfunds.qfundsbackend.model.Company;
-import com.qfunds.qfundsbackend.model.Invoice;
-import com.qfunds.qfundsbackend.model.InvoiceStatus;
+import com.qfunds.qfundsbackend.model.*;
 import com.qfunds.qfundsbackend.repository.InvoiceRepository;
+import com.qfunds.qfundsbackend.repository.custom.InvoiceCustomRepository;
 import com.qfunds.qfundsbackend.service.BidService;
 import com.qfunds.qfundsbackend.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +80,11 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public List<Invoice> getInvoicesByProps(InvoiceStatus status, Company company, Double lessThanAmount, Boolean hasLeadingBid) {
         return invoiceRepository.findInvoiceByProps(status, company, lessThanAmount, hasLeadingBid);
+    }
+
+    @Override
+    public List<Invoice> getInvolvedInvoices(User user) {
+        return invoiceRepository.findInvoiceWhereCompanyNameInBidHistory(user.getCompany());
     }
 
 }

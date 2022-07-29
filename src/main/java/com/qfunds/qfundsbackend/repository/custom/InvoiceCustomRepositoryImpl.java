@@ -34,5 +34,13 @@ public class InvoiceCustomRepositoryImpl implements InvoiceCustomRepository{
             query.addCriteria(new Criteria().andOperator(criteria.toArray(new Criteria[criteria.size()])));
         return mongoTemplate.find(query, Invoice.class);
     }
+
+    public List<Invoice> findInvoiceWhereCompanyNameInBidHistory(String companyName){
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("bidHistory")
+                .elemMatch(Criteria.where("buyerCompany")
+                        .is(companyName)));
+        return mongoTemplate.find(query, Invoice.class);
+    }
 }
 
