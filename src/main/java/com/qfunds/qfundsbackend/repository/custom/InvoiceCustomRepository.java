@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface InvoiceCustomRepository {
 
-    public List<Invoice> findInvoiceByProps(InvoiceStatus status, Company company,
+    List<Invoice> findInvoiceByProps(InvoiceStatus status, Company company,
                                             Double lessThanAmount, Boolean hasLeadingBid);
+    List<Invoice> findInvoiceWhereCompanyNameInBidHistory(String companyName);
 }
+

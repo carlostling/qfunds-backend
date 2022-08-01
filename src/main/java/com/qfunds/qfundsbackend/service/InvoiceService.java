@@ -1,10 +1,7 @@
 package com.qfunds.qfundsbackend.service;
 
 import com.qfunds.qfundsbackend.error.EntityDoesNotExistException;
-import com.qfunds.qfundsbackend.model.Bid;
-import com.qfunds.qfundsbackend.model.Company;
-import com.qfunds.qfundsbackend.model.Invoice;
-import com.qfunds.qfundsbackend.model.InvoiceStatus;
+import com.qfunds.qfundsbackend.model.*;
 
 import java.util.List;
 
@@ -20,4 +17,6 @@ public interface InvoiceService {
 
     List<Invoice> getInvoicesByProps(InvoiceStatus status, Company seller,
                                      Double lessThanAmount, Boolean hasLeadingBid);
+
+    List<Invoice> getInvolvedInvoices(User user);
 }
