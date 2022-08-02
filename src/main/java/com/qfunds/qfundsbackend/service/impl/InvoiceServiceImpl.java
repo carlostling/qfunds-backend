@@ -63,13 +63,13 @@ public class InvoiceServiceImpl implements InvoiceService {
         //No current bid, make it leading
         if (invoice.getLeadingBid() == null) {
             invoice.setLeadingBid(bid);
-            invoice.getBidHistory().add(bid);
+            invoice.addBidToHistory(bid);
             saveInvoice(invoice);
             return invoice;
         }
         if (bidService.isLowerBid(bid, invoice.getLeadingBid())) {
             invoice.setLeadingBid(bid);
-            invoice.getBidHistory().add(bid);
+            invoice.addBidToHistory(bid);
             saveInvoice(invoice);
         }
         return invoice;

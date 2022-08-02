@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,4 +40,10 @@ public class Invoice {
 
     private Bid leadingBid;
 
+    public void addBidToHistory(Bid bid) {
+        if(bidHistory == null){
+            bidHistory = new ArrayList<Bid>();
+        }
+        bidHistory.add(bid);
+    }
 }
