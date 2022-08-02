@@ -63,8 +63,8 @@ public class InvoiceController {
     /**
      * Returns a list of invoices where the user and/or its company has already placed a bid.
      */
-    @GetMapping("/involved")
-    public ResponseEntity<?> getInvolvedInvoices(@RequestBody String userId){
+    @GetMapping("/involved/{userId}")
+    public ResponseEntity<?> getInvolvedInvoices(@PathVariable String userId){
         return ResponseEntity.ok().body(invoiceService.getInvolvedInvoices(userId));
     }
 
