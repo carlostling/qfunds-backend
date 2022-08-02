@@ -50,13 +50,14 @@ public class InvoiceController {
     }**/
 
     @GetMapping("/")
-    public ResponseEntity<?> getInvoicesByProperties(@RequestParam(required = false) InvoiceStatus status,
+    public ResponseEntity<?> getInvoicesByProperties(@RequestParam(required = false) String search,
+                                                     @RequestParam(required = false) InvoiceStatus status,
                                                      @RequestParam(required = false) Company company,
                                                      @RequestParam(required = false) Double lessThanAmount,
                                                      @RequestParam(required = false) Boolean hasLeadingBid) {
         return ResponseEntity.ok().body(
                         invoiceService.getInvoicesByProps(
-                                status, company, lessThanAmount, hasLeadingBid));
+                                search, status, company, lessThanAmount, hasLeadingBid));
     }
 
     /**

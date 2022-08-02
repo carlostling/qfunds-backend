@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 @Repository
@@ -18,9 +19,17 @@ public class InvoiceCustomRepositoryImpl implements InvoiceCustomRepository{
     MongoTemplate mongoTemplate;
 
     @Override
-    public List<Invoice> findInvoiceByProps(InvoiceStatus status, Company company, Double lessThanAmount, Boolean hasLeadingBid) {
+    public List<Invoice> findInvoiceByProps(String search, InvoiceStatus status, Company company, Double lessThanAmount, Boolean hasLeadingBid) {
         final Query query = new Query();
         final List<Criteria> criteria = new ArrayList<>();
+
+        if (search != null) {
+            criteria.add(Criteria.where("issuer.name").regex(Pattern.compile(search, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE)));
+            criteria.add(Criteria.where("receiver.name").regex(Pattern.compile(search, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE)));
+            criteria.add(Criteria.where("issuer.orgNumber").is(search));
+            criteria.add(Criteria.where("receiver.orgNumber").is(search));
+        }
+
         if (status != null)
             criteria.add(Criteria.where("status").is(status));
         if (company != null)

@@ -3,7 +3,6 @@ package com.qfunds.qfundsbackend.service.impl;
 import com.qfunds.qfundsbackend.error.EntityDoesNotExistException;
 import com.qfunds.qfundsbackend.model.*;
 import com.qfunds.qfundsbackend.repository.InvoiceRepository;
-import com.qfunds.qfundsbackend.repository.custom.InvoiceCustomRepository;
 import com.qfunds.qfundsbackend.service.BidService;
 import com.qfunds.qfundsbackend.service.InvoiceService;
 import com.qfunds.qfundsbackend.service.UserService;
@@ -82,8 +81,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public List<Invoice> getInvoicesByProps(InvoiceStatus status, Company company, Double lessThanAmount, Boolean hasLeadingBid) {
-        return invoiceRepository.findInvoiceByProps(status, company, lessThanAmount, hasLeadingBid);
+    public List<Invoice> getInvoicesByProps(String search, InvoiceStatus status, Company company, Double lessThanAmount, Boolean hasLeadingBid) {
+        return invoiceRepository.findInvoiceByProps(search, status, company, lessThanAmount, hasLeadingBid);
     }
 
     @Override
