@@ -63,8 +63,8 @@ public class InvoiceController {
      * Returns a list of invoices where the user and/or its company has already placed a bid.
      */
     @GetMapping("/involved")
-    public ResponseEntity<?> getInvolvedInvoices(@RequestBody User user){
-        return ResponseEntity.ok().body(invoiceService.getInvolvedInvoices(user));
+    public ResponseEntity<?> getInvolvedInvoices(@RequestBody String userId){
+        return ResponseEntity.ok().body(invoiceService.getInvolvedInvoices(userId));
     }
 
     @PostMapping("/test")

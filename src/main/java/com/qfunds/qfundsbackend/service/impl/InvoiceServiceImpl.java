@@ -6,6 +6,7 @@ import com.qfunds.qfundsbackend.repository.InvoiceRepository;
 import com.qfunds.qfundsbackend.repository.custom.InvoiceCustomRepository;
 import com.qfunds.qfundsbackend.service.BidService;
 import com.qfunds.qfundsbackend.service.InvoiceService;
+import com.qfunds.qfundsbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,28 +19,31 @@ import java.util.Optional;
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
 
-   @Autowired
-   InvoiceRepository invoiceRepository;
+    @Autowired
+    InvoiceRepository invoiceRepository;
 
     @Autowired
     private BidService bidService;
+
+    @Autowired
+    private UserService userService;
+
     @Override
     public Invoice saveInvoice(Invoice invoice) {
         return invoiceRepository.save(invoice);
     }
 
-   @Override
-   public void checkInvoicesPassDeadline(){
+    @Override
+    public void checkInvoicesPassDeadline() {
         List<Invoice> toDeactivate = invoiceRepository
                 .findByDeadlineLessThanAndStatus(LocalDateTime.now(), InvoiceStatus.ACTIVE);
-        for (Invoice invoice : toDeactivate ) {
-           System.out.println(invoice.getIssuer().getName() + " Passed deadline by: " +
-                   ChronoUnit.SECONDS.between(invoice.getDeadline(), LocalDateTime.now())
+        for (Invoice invoice : toDeactivate) {
+            System.out.println(invoice.getIssuer().getName() + " Passed deadline by: " +
+                    ChronoUnit.SECONDS.between(invoice.getDeadline(), LocalDateTime.now())
                     + " seconds, deactivating");
             if (hasWinner(invoice)) {
                 invoice.setStatus(InvoiceStatus.WON);
-            }
-            else{
+            } else {
                 invoice.setStatus(InvoiceStatus.NO_WINNER);
             }
         }
@@ -53,18 +57,18 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public Invoice placeBid(@RequestBody Bid bid) throws EntityDoesNotExistException {
         Optional<Invoice> invoiceOpt = invoiceRepository.findById(bid.getInvoiceId());
-        if (!invoiceOpt.isPresent()) {
+        if (invoiceOpt.isEmpty()) {
             throw new EntityDoesNotExistException("Bid not found", Bid.class);
         }
         Invoice invoice = invoiceOpt.get();
-       //No current bid, make it leading
-        if(invoice.getLeadingBid() == null){
+        //No current bid, make it leading
+        if (invoice.getLeadingBid() == null) {
             invoice.setLeadingBid(bid);
             saveInvoice(invoice);
             System.out.println(invoice.getLeadingBid());
             return invoice;
         }
-        if(bidService.isLowerBid(bid, invoice.getLeadingBid())){
+        if (bidService.isLowerBid(bid, invoice.getLeadingBid())) {
             invoice.setLeadingBid(bid);
             System.out.println(invoice.getLeadingBid());
             saveInvoice(invoice);
@@ -83,8 +87,12 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public List<Invoice> getInvolvedInvoices(User user) {
+    public List<Invoice> getInvolvedInvoices(String userId) {
+        Optional<User> optUser = userService.getUserById(userId);
+        if (optUser.isEmpty()) {
+            throw new EntityDoesNotExistException("User not found", User.class);
+        }
+        User user = optUser.get();
         return invoiceRepository.findInvoiceWhereCompanyNameInBidHistory(user.getCompany());
     }
-
 }
