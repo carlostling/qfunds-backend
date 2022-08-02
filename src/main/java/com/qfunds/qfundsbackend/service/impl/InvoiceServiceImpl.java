@@ -63,13 +63,13 @@ public class InvoiceServiceImpl implements InvoiceService {
         //No current bid, make it leading
         if (invoice.getLeadingBid() == null) {
             invoice.setLeadingBid(bid);
+            invoice.getBidHistory().add(bid);
             saveInvoice(invoice);
-            System.out.println(invoice.getLeadingBid());
             return invoice;
         }
         if (bidService.isLowerBid(bid, invoice.getLeadingBid())) {
             invoice.setLeadingBid(bid);
-            System.out.println(invoice.getLeadingBid());
+            invoice.getBidHistory().add(bid);
             saveInvoice(invoice);
         }
         return invoice;
@@ -92,6 +92,7 @@ public class InvoiceServiceImpl implements InvoiceService {
             throw new EntityDoesNotExistException("User not found", User.class);
         }
         User user = optUser.get();
-        return invoiceRepository.findInvoiceWhereCompanyNameInBidHistory(user.getCompany());
+        List<Invoice> list = invoiceRepository.findInvoiceWhereCompanyNameInBidHistory(user.getCompany());
+        return list;
     }
 }
