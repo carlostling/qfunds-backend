@@ -15,7 +15,7 @@ public interface InvoiceService {
 
     List<Invoice> getAllInvoices();
 
-    List<Invoice> getInvoicesByProps(InvoiceStatus status, Company seller,
+    List<Invoice> getInvoicesByProps(String search, InvoiceStatus status, Company seller,
                                      Double lessThanAmount, Boolean hasLeadingBid);
 
     List<Invoice> getInvolvedInvoices(User user);

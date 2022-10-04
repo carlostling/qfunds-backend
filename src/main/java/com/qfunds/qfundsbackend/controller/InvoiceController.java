@@ -50,21 +50,22 @@ public class InvoiceController {
     }**/
 
     @GetMapping("/")
-    public ResponseEntity<?> getInvoicesByProperties(@RequestParam(required = false) InvoiceStatus status,
+    public ResponseEntity<?> getInvoicesByProperties(@RequestParam(required = false) String search,
+                                                     @RequestParam(required = false) InvoiceStatus status,
                                                      @RequestParam(required = false) Company company,
                                                      @RequestParam(required = false) Double lessThanAmount,
                                                      @RequestParam(required = false) Boolean hasLeadingBid) {
         return ResponseEntity.ok().body(
                         invoiceService.getInvoicesByProps(
-                                status, company, lessThanAmount, hasLeadingBid));
+                                search, status, company, lessThanAmount, hasLeadingBid));
     }
 
     /**
      * Returns a list of invoices where the user and/or its company has already placed a bid.
      */
-    @GetMapping("/involved")
-    public ResponseEntity<?> getInvolvedInvoices(@RequestBody User user){
-        return ResponseEntity.ok().body(invoiceService.getInvolvedInvoices(user));
+    @GetMapping("/involved/{userId}")
+    public ResponseEntity<?> getInvolvedInvoices(@PathVariable String userId){
+        return ResponseEntity.ok().body(invoiceService.getInvolvedInvoices(userId));
     }
 
     @GetMapping("/won")
