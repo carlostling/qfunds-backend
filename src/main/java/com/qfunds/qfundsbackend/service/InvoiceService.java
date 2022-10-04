@@ -19,4 +19,6 @@ public interface InvoiceService {
                                      Double lessThanAmount, Boolean hasLeadingBid);
 
     List<Invoice> getInvolvedInvoices(User user);
+
+    List<Invoice> getWonInvoices(User user);
 }

@@ -87,4 +87,9 @@ public class InvoiceServiceImpl implements InvoiceService {
         return invoiceRepository.findInvoiceWhereCompanyNameInBidHistory(user.getCompany());
     }
 
+    @Override
+    public List<Invoice> getWonInvoices(User user) {
+        return invoiceRepository.findInvoiceWhereCompanyNameInLeadingBid(user.getCompany());
+    }
+
 }

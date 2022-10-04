@@ -67,6 +67,11 @@ public class InvoiceController {
         return ResponseEntity.ok().body(invoiceService.getInvolvedInvoices(user));
     }
 
+    @GetMapping("/won")
+    public ResponseEntity<?> getWonInvoices(@RequestBody User user){
+        return ResponseEntity.ok().body(invoiceService.getWonInvoices(user));
+    }
+
     @PostMapping("/test")
     public void process(@RequestBody Map<String, Object> payload)
             throws Exception {
