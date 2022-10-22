@@ -68,9 +68,9 @@ public class InvoiceController {
         return ResponseEntity.ok().body(invoiceService.getInvolvedInvoices(userId));
     }
 
-    @GetMapping("/won")
-    public ResponseEntity<?> getWonInvoices(@RequestBody User user){
-        return ResponseEntity.ok().body(invoiceService.getWonInvoices(user));
+    @GetMapping("/won/{userId}")
+    public ResponseEntity<?> getWonInvoices(@PathVariable String userId){ //This is not secure
+        return ResponseEntity.ok().body(invoiceService.getWonInvoices(userId));
     }
 
     @PostMapping("/test")

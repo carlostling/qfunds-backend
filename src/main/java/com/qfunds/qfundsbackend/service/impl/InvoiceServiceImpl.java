@@ -97,8 +97,13 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public List<Invoice> getWonInvoices(User user) {
-        return invoiceRepository.findInvoiceWhereCompanyNameInLeadingBid(user.getCompany());
+    public List<Invoice> getWonInvoices(String userId) {
+        Optional<User> optUser = userService.getUserById(userId);
+        if (optUser.isEmpty()) {
+            throw new EntityDoesNotExistException("User not found", User.class);
+        }
+        User user = optUser.get();
+        return invoiceRepository.findInvoiceWhereCompanyNameInLeadingBidAndStatusIsWon(user.getCompany());
     }
 
 }

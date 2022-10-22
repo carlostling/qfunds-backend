@@ -11,6 +11,6 @@ public interface InvoiceCustomRepository {
                                      Double lessThanAmount, Boolean hasLeadingBid);
     List<Invoice> findInvoiceWhereCompanyNameInBidHistory(String companyName);
 
-    List<Invoice> findInvoiceWhereCompanyNameInLeadingBid(String company);
+    List<Invoice> findInvoiceWhereCompanyNameInLeadingBidAndStatusIsWon(String company);
 }
 

@@ -53,9 +53,10 @@ public class InvoiceCustomRepositoryImpl implements InvoiceCustomRepository{
     }
 
     @Override
-    public List<Invoice> findInvoiceWhereCompanyNameInLeadingBid(String companyName) {
+    public List<Invoice> findInvoiceWhereCompanyNameInLeadingBidAndStatusIsWon(String companyName) {
         final Query query = new Query();
         query.addCriteria(Criteria.where("leadingBid.buyerCompany").is(companyName));
+        query.addCriteria(Criteria.where("status").is("WON"));
         return mongoTemplate.find(query, Invoice.class);
     }
 
