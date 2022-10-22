@@ -31,6 +31,11 @@ public class InvoiceController {
         return new ResponseEntity<>(invoice, HttpStatus.OK);
     }
 
+    @GetMapping("/{invoiceId}")
+    public ResponseEntity<Invoice> getInvoiceById(@PathVariable String invoiceId){
+        return new ResponseEntity(invoiceService.getInvoiceById(invoiceId), HttpStatus.OK);
+    }
+
     @PostMapping("/bid")
     public ResponseEntity<Invoice> placeBid(@RequestBody Bid bid){
         System.out.println(bid);
