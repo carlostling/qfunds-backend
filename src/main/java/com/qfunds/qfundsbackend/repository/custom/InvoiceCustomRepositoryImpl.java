@@ -44,8 +44,9 @@ public class InvoiceCustomRepositoryImpl implements InvoiceCustomRepository{
         return mongoTemplate.find(query, Invoice.class);
     }
 
-    public List<Invoice> findInvoiceWhereCompanyNameInBidHistory(String companyName){
+    public List<Invoice> findInvoiceWhereCompanyNameInBidHistoryAndStatusIsActive(String companyName){
         final Query query = new Query();
+        query.addCriteria(Criteria.where("status").is("ACTIVE"));
         query.addCriteria(Criteria.where("bidHistory")
                 .elemMatch(Criteria.where("buyerCompany")
                         .is(companyName)));

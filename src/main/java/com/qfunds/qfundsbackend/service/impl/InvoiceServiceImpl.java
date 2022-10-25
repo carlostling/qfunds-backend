@@ -92,7 +92,7 @@ public class InvoiceServiceImpl implements InvoiceService {
             throw new EntityDoesNotExistException("User not found", User.class);
         }
         User user = optUser.get();
-        List<Invoice> list = invoiceRepository.findInvoiceWhereCompanyNameInBidHistory(user.getCompany());
+        List<Invoice> list = invoiceRepository.findInvoiceWhereCompanyNameInBidHistoryAndStatusIsActive(user.getCompany());
         return list;
     }
 
