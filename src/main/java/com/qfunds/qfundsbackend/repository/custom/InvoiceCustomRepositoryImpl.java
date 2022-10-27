@@ -22,12 +22,13 @@ public class InvoiceCustomRepositoryImpl implements InvoiceCustomRepository{
     public List<Invoice> findInvoiceByProps(String search, InvoiceStatus status, Company company, Double lessThanAmount, Boolean hasLeadingBid) {
         final Query query = new Query();
         final List<Criteria> criteria = new ArrayList<>();
-
+        final List<Criteria> searchCriteria = new ArrayList<>();
         if (search != null) {
-            criteria.add(Criteria.where("issuer.name").regex(Pattern.compile(search, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE)));
-            criteria.add(Criteria.where("receiver.name").regex(Pattern.compile(search, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE)));
-            criteria.add(Criteria.where("issuer.orgNumber").is(search));
-            criteria.add(Criteria.where("receiver.orgNumber").is(search));
+            searchCriteria.add(Criteria.where("issuer.name").regex(Pattern.compile(search, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE)));
+            searchCriteria.add(Criteria.where("receiver.name").regex(Pattern.compile(search, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE)));
+            searchCriteria.add(Criteria.where("issuer.orgNumber").is(search));
+            searchCriteria.add(Criteria.where("receiver.orgNumber").is(search));
+            query.addCriteria(new Criteria().orOperator(searchCriteria.toArray(new Criteria[searchCriteria.size()])));
         }
 
         if (status != null)
