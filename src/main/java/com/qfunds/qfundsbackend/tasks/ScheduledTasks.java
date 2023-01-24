@@ -17,11 +17,9 @@ package com.qfunds.qfundsbackend.tasks;/*
 
 import java.text.SimpleDateFormat;
 
-import com.qfunds.qfundsbackend.service.InvoiceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -32,17 +30,17 @@ public class ScheduledTasks {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     private static final String CRON_EXPRESSION = "0 0/15 * * * *";
 
-    @Autowired
+   /* @Autowired
     InvoiceService invoiceService;
 
-    /*@Scheduled(fixedRate = 5000)
+    *//*@Scheduled(fixedRate = 5000)
     public void reportCurrentTime() {
         log.info("lol The time is now {}", dateFormat.format(new Date()));
-    }*/
+    }*//*
 
     @Scheduled(cron =  CRON_EXPRESSION)
     public void checkInvoiceDeadlines(){
         log.info("Checking invoice deadlines");
         invoiceService.checkInvoicesPassDeadline();
-    }
+    }*/
 }

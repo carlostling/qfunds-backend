@@ -4,7 +4,7 @@ import com.qfunds.qfundsbackend.config.auth.JwtTokenProvider;
 import com.qfunds.qfundsbackend.error.BadLoginException;
 import com.qfunds.qfundsbackend.error.UserAlreadyExistsException;
 import com.qfunds.qfundsbackend.model.User;
-import com.qfunds.qfundsbackend.service.UserService;
+import com.qfunds.qfundsbackend.service.impl.UserService;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;

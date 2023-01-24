@@ -1,9 +1,9 @@
+/*
 package com.qfunds.qfundsbackend.controller;
 
 
 import com.qfunds.qfundsbackend.error.EntityDoesNotExistException;
 import com.qfunds.qfundsbackend.model.*;
-import com.qfunds.qfundsbackend.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -32,7 +31,7 @@ public class InvoiceController {
     }
 
     @PostMapping("/bid")
-    public ResponseEntity<Invoice> placeBid(@RequestBody Bid bid){
+    public ResponseEntity<Invoice> placeBid(@RequestBody InvoiceBid bid){
         System.out.println(bid);
         try{
             Invoice invoice = invoiceService.placeBid(bid);
@@ -43,11 +42,13 @@ public class InvoiceController {
         }
     }
 
-    /**@GetMapping("/")
+    */
+/**@GetMapping("/")
     public ResponseEntity<List<Invoice>> getAllInvoices(){
         List<Invoice> invoices = invoiceService.getAllInvoices();
         return new ResponseEntity<>(invoices, HttpStatus.OK);
-    }**/
+    }**//*
+
 
     @GetMapping("/")
     public ResponseEntity<?> getInvoicesByProperties(@RequestParam(required = false) String search,
@@ -60,9 +61,11 @@ public class InvoiceController {
                                 search, status, company, lessThanAmount, hasLeadingBid));
     }
 
-    /**
+    */
+/**
      * Returns a list of invoices where the user and/or its company has already placed a bid.
-     */
+     *//*
+
     @GetMapping("/involved/{userId}")
     public ResponseEntity<?> getInvolvedInvoices(@PathVariable String userId){
         return ResponseEntity.ok().body(invoiceService.getInvolvedInvoices(userId));
@@ -76,3 +79,4 @@ public class InvoiceController {
 
     }
 }
+*/

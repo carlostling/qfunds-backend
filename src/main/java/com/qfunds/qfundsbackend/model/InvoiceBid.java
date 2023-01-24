@@ -1,12 +1,14 @@
 package com.qfunds.qfundsbackend.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document("bids")
-public class Bid {
+@Document("invoice_bids")
+public class InvoiceBid {
     @Id
     private String id;
 
@@ -14,7 +16,7 @@ public class Bid {
 
     private String buyerCompany;
 
-    private String accountsReceivableCompanyId;
+    private String invoiceId;
 
     private Double bidAmount;
 }
