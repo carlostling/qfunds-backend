@@ -36,13 +36,13 @@ public class Invoice {
 
     private Double amount;
 
-    private List<Bid> bidHistory;
+    private List<InvoiceBid> bidHistory;
 
-    private Bid leadingBid;
+    private InvoiceBid leadingBid;
 
-    public void addBidToHistory(Bid bid) {
+    public void addBidToHistory(InvoiceBid bid) {
         if(bidHistory == null){
-            bidHistory = new ArrayList<Bid>();
+            bidHistory = new ArrayList<InvoiceBid>();
         }
         bidHistory.add(bid);
     }
