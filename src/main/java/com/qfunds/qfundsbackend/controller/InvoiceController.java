@@ -30,6 +30,11 @@ public class InvoiceController {
         return new ResponseEntity<>(invoice, HttpStatus.OK);
     }
 
+    @GetMapping("/{invoiceId}")
+    public ResponseEntity<Invoice> getInvoiceById(@PathVariable String invoiceId){
+        return new ResponseEntity(invoiceService.getInvoiceById(invoiceId), HttpStatus.OK);
+    }
+
     @PostMapping("/bid")
     public ResponseEntity<Invoice> placeBid(@RequestBody InvoiceBid bid){
         System.out.println(bid);
@@ -69,6 +74,11 @@ public class InvoiceController {
     @GetMapping("/involved/{userId}")
     public ResponseEntity<?> getInvolvedInvoices(@PathVariable String userId){
         return ResponseEntity.ok().body(invoiceService.getInvolvedInvoices(userId));
+    }
+
+    @GetMapping("/won/{userId}")
+    public ResponseEntity<?> getWonInvoices(@PathVariable String userId){ //This is not secure
+        return ResponseEntity.ok().body(invoiceService.getWonInvoices(userId));
     }
 
     @PostMapping("/test")

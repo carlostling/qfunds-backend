@@ -9,6 +9,8 @@ public interface InvoiceCustomRepository {
 
     List<Invoice> findInvoiceByProps(String search, InvoiceStatus status, Company company,
                                      Double lessThanAmount, Boolean hasLeadingBid);
-    List<Invoice> findInvoiceWhereCompanyNameInBidHistory(String companyName);
+    List<Invoice> findInvoiceWhereCompanyNameInBidHistoryAndStatusIsActive(String companyName);
+
+    List<Invoice> findInvoiceWhereCompanyNameInLeadingBidAndStatusIsWon(String company);
 }
 
