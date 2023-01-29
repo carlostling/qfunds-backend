@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Document("arcs")
 public class AccountsReceivableCompany {
 
     private String orgNumber;
