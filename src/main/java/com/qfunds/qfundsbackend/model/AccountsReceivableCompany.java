@@ -9,6 +9,7 @@ import java.util.List;
 @Document("arcs")
 public class AccountsReceivableCompany {
 
+    private Strnig name;
     private String orgNumber;
     private String description;
     private Double turnover;
