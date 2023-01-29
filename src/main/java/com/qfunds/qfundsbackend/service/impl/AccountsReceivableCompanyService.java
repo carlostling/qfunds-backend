@@ -87,4 +87,8 @@ public class AccountsReceivableCompanyService{
         List<AccountsReceivableCompany> list = accountsReceivableCompanyRepository.findAccountsReceivableCompanyWhereCompanyNameInBidHistory(user.getCompany());
         return list;
     }
+
+    public List<AccountsReceivableCompany> getAllArcs() {
+        return accountsReceivableCompanyRepository.findAll();
+    }
 }

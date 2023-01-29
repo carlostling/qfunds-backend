@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/v1/accounts-receivable-company")
@@ -38,14 +39,14 @@ public class AccountsReceivableCompanyController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+
+    @GetMapping("/")
+    public ResponseEntity<List<AccountsReceivableCompany>> getAllArcs(){
+        List<AccountsReceivableCompany> arcs = accountsReceivableCompanyService.getAllArcs();
+        return new ResponseEntity<>(arcs, HttpStatus.OK);
+    }/*
 }
-
-/**@GetMapping("/")
-    public ResponseEntity<List<Invoice>> getAllInvoices(){
-        List<Invoice> invoices = invoiceService.getAllInvoices();
-        return new ResponseEntity<>(invoices, HttpStatus.OK);
-    }**//*
-
 
     @GetMapping("/")
     public ResponseEntity<?> getInvoicesByProperties(@RequestParam(required = false) String search,
