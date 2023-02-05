@@ -1,15 +1,11 @@
 package com.qfunds.qfundsbackend.service.impl;
 
-import com.qfunds.qfundsbackend.error.EntityDoesNotExistException;
 import com.qfunds.qfundsbackend.model.*;
 import com.qfunds.qfundsbackend.repository.AccountsReceivableCompanyRepository;
-import com.qfunds.qfundsbackend.repository.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,10 +45,10 @@ public class AccountsReceivableCompanyService{
         return arc.getLeadingBid() != null;
     }
 
-    public AccountsReceivableCompany placeBid(@RequestBody Bid bid) throws EntityDoesNotExistException {
+    public AccountsReceivableCompany placeBid(@RequestBody Bid bid) throws NullPointerException {
         Optional<AccountsReceivableCompany> arcOpt = accountsReceivableCompanyRepository.findById(bid.getAccountsReceivableCompanyId());
         if (arcOpt.isEmpty()) {
-            throw new EntityDoesNotExistException("Bid not found", Bid.class);
+            throw new NullPointerException();
         }
         AccountsReceivableCompany arc = arcOpt.get();
         //No current bid, make it leading
@@ -81,7 +77,7 @@ public class AccountsReceivableCompanyService{
     public List<AccountsReceivableCompany> getInvolvedaccountsReceivableCompanies(String userId) {
         Optional<User> optUser = userService.getUserById(userId);
         if (optUser.isEmpty()) {
-            throw new EntityDoesNotExistException("User not found", User.class);
+            throw new NullPointerException();
         }
         User user = optUser.get();
         List<AccountsReceivableCompany> list = accountsReceivableCompanyRepository.findAccountsReceivableCompanyWhereCompanyNameInBidHistory(user.getCompany());
@@ -90,5 +86,8 @@ public class AccountsReceivableCompanyService{
 
     public List<AccountsReceivableCompany> getAllArcs() {
         return accountsReceivableCompanyRepository.findAll();
+    }
+    public List<AccountsReceivableCompany> getArcsByProps(String search, InvoiceStatus status, Company company, Double lessThanAmount, Boolean hasLeadingBid) {
+        return accountsReceivableCompanyRepository.findArcsByProps(search, status, company, lessThanAmount, hasLeadingBid);
     }
 }

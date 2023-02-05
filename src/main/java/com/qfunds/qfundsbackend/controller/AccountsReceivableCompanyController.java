@@ -1,6 +1,6 @@
 package com.qfunds.qfundsbackend.controller;
 
-import com.qfunds.qfundsbackend.error.EntityDoesNotExistException;
+import com.qfunds.qfundsbackend.error.*;
 import com.qfunds.qfundsbackend.model.*;
 import com.qfunds.qfundsbackend.service.impl.AccountsReceivableCompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,8 @@ public class AccountsReceivableCompanyController {
 
     @PostMapping("/")
     public ResponseEntity<AccountsReceivableCompany> postAccountsReceivableCompany(@RequestBody AccountsReceivableCompany arc) {
-        //arc.setDeadline(LocalDateTime.now().plusHours(DEADLINE_HOURS));
-        //arc.setStatus(InvoiceStatus.ACTIVE);
+        arc.setDeadline(LocalDateTime.now().plusHours(DEADLINE_HOURS));
+        arc.setStatus(InvoiceStatus.ACTIVE);
         accountsReceivableCompanyService.saveAccountsReceivableCompany(arc);
         return new ResponseEntity<>(arc, HttpStatus.OK);
     }
@@ -41,26 +41,27 @@ public class AccountsReceivableCompanyController {
     }
 
 
-    @GetMapping("/")
-    public ResponseEntity<List<AccountsReceivableCompany>> getAllArcs(){
+    /*@GetMapping("/")
+    public ResponseEntity<List<AccountsReceivableCompany>> getAllArcs() {
+        System.out.println(("GET ARCS"));
         List<AccountsReceivableCompany> arcs = accountsReceivableCompanyService.getAllArcs();
         return new ResponseEntity<>(arcs, HttpStatus.OK);
-    }/*
-}
+    }*/
 
     @GetMapping("/")
-    public ResponseEntity<?> getInvoicesByProperties(@RequestParam(required = false) String search,
+    public ResponseEntity<?> getArcsByProperties(@RequestParam(required = false) String search,
                                                      @RequestParam(required = false) InvoiceStatus status,
                                                      @RequestParam(required = false) Company company,
                                                      @RequestParam(required = false) Double lessThanAmount,
                                                      @RequestParam(required = false) Boolean hasLeadingBid) {
         return ResponseEntity.ok().body(
-                        invoiceService.getInvoicesByProps(
-                                search, status, company, lessThanAmount, hasLeadingBid));
+                accountsReceivableCompanyService.getArcsByProps(
+                        search, status, company, lessThanAmount, hasLeadingBid));
     }
+}
 
-    */
-/**
+
+/*
      * Returns a list of invoices where the user and/or its company has already placed a bid.
      *//*
 

@@ -1,7 +1,9 @@
 package com.qfunds.qfundsbackend.model;
 
 import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,12 +11,14 @@ import java.util.List;
 @Document("arcs")
 public class AccountsReceivableCompany {
 
-    private Strnig name;
+    private String name;
     private String orgNumber;
     private String description;
     private Double turnover;
     private Integer dueDate;
     private Double operatingProfit;
+    private InvoiceStatus status;
+    private LocalDateTime deadline;
 
     private User winner;
     private List<Bid> bidHistory;
@@ -26,4 +30,6 @@ public class AccountsReceivableCompany {
         }
         bidHistory.add(bid);
     }
+
+
 }

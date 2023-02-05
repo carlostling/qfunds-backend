@@ -2,7 +2,6 @@ package com.qfunds.qfundsbackend.repository.custom;
 
 import com.qfunds.qfundsbackend.model.AccountsReceivableCompany;
 import com.qfunds.qfundsbackend.model.Company;
-import com.qfunds.qfundsbackend.model.Invoice;
 import com.qfunds.qfundsbackend.model.InvoiceStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -21,7 +20,7 @@ public class CustomAccountsReceivableCompanyRepositoryImpl implements CustomAcco
     MongoTemplate mongoTemplate;
 
     @Override
-    public List<AccountsReceivableCompany> findAccountsReceivableCompanyByProps(String search, InvoiceStatus status, Company company, Double lessThanAmount, Boolean hasLeadingBid) {
+    public List<AccountsReceivableCompany> findArcsByProps(String search, InvoiceStatus status, Company company, Double lessThanAmount, Boolean hasLeadingBid) {
         final Query query = new Query();
         final List<Criteria> criteria = new ArrayList<>();
 
@@ -44,6 +43,12 @@ public class CustomAccountsReceivableCompanyRepositoryImpl implements CustomAcco
         if (!criteria.isEmpty())
             query.addCriteria(new Criteria().andOperator(criteria.toArray(new Criteria[criteria.size()])));
         return mongoTemplate.find(query, AccountsReceivableCompany.class);
+    }
+
+
+    @Override
+    public List<AccountsReceivableCompany> findAccountsReceivableCompanyByProps(String search, InvoiceStatus status, Company company, Double lessThanAmount, Boolean hasLeadingBid) {
+        return null;
     }
 
     @Override
